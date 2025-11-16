@@ -50,9 +50,9 @@ public class EtudiantGraphQLController {
         Etudiant et = new Etudiant();
         et.setNom(etudiant.nom());
         et.setPrenom(etudiant.prenom());
-        // ⬇️ Convertit le String du DTO vers l'enum Genre attendu par l'entité
+
         if (etudiant.genre() != null) {
-            et.setGenre(Genre.valueOf(etudiant.genre())); // la valeur doit correspondre EXACTEMENT à l’enum
+            et.setGenre(etudiant.genre());
         }
         et.setCentre(centre);
 
@@ -66,7 +66,10 @@ public class EtudiantGraphQLController {
         return etudiantRepository.findById(id).map(et -> {
             if (etudiant.nom() != null)    et.setNom(etudiant.nom());
             if (etudiant.prenom() != null) et.setPrenom(etudiant.prenom());
-            if (etudiant.genre() != null)  et.setGenre(Genre.valueOf(etudiant.genre())); // ⬅️ pas Etudiant.genre()
+            if (etudiant.genre() != null)  {
+                // FIX: idem ici
+                et.setGenre(etudiant.genre());
+            }
             if (centre != null)            et.setCentre(centre);
             return etudiantRepository.save(et);
         }).orElse(null);

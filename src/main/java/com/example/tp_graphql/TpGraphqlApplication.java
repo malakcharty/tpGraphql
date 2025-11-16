@@ -41,7 +41,6 @@ public class TpGraphqlApplication implements CommandLineRunner {
                 .build();
         centreRepository.save(centre2);
 
-        // --- Étudiants de test ---
         Etudiant et1 = Etudiant.builder()
                 .nom("Adnani")
                 .prenom("Brahim")
